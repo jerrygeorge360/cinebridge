@@ -9,8 +9,8 @@ This is CineBridge's persistent execution plan. It is derived from the approved 
 | 1 | Research | — | Codex | No |
 | 2 | Product definition | Research | Codex | No |
 | 3 | Moodboard and brand | Product definition | Codex | Yes (completed) |
-| 4 | Penpot organizer recommendation screen | Moodboard and brand | Manual evidence | Yes |
-| 5 | Penpot responsive core flows | Organizer recommendation screen | Manual evidence | Yes |
+| 4 | Penpot organizer recommendation screen | Moodboard and brand | Factory design workflow | Yes |
+| 5 | Penpot responsive core flows | Organizer recommendation screen | Factory design workflow | Yes |
 | 6 | Data and security contract | Responsive core flows | Codex | Yes, material architecture gate |
 | 7 | Event and access foundation | Data and security contract | Codex | No |
 | 8 | Attendee registration | Event and access foundation | Codex | No |
@@ -51,7 +51,9 @@ This is CineBridge's persistent execution plan. It is derived from the approved 
 - Objective: create desktop and mobile Penpot frames for the organizer recommendation screen described in `docs/DESIGN.md`.
 - Context: `docs/DESIGN.md`, `docs/PRD.md`, `docs/DECISIONS.md`, this plan.
 - Acceptance: a real Penpot URL plus non-empty `docs/design/organizer-recommendation-desktop.png` and `docs/design/organizer-recommendation-mobile.png` exports exist; the screen has one top pick, two secondary alternatives, coverage/warning language, and one dominant choice action; it is marked ready for human review, not self-approved.
-- Validation: `python3 scripts/validate_design_checkpoint.py docs/design/organizer-recommendation.json`; `python3 -m unittest discover -s tests -v`; `git diff --check`.
+- Internal steps: create editable desktop/mobile boards through Penpot Cloud MCP; review against the scoped documents; repair only recorded defects; render/export and validate evidence; await human approval. Each factory run performs at most one step under this same stage identity.
+- Validation: creation, review, and repair use the matching `--phase` checkpoint validation plus `git diff --check`. Final evidence uses `python3 scripts/validate_design_checkpoint.py docs/design/organizer-recommendation.json`, repository tests, and `git diff --check`.
+- Export limitation: if Penpot Cloud MCP cannot save its rendered image result to the repository, manually export only the two named PNGs and rerun the same stage. Missing exports are never fabricated or waived.
 - Dependency: moodboard and brand.
 - Approval: explicit human approval of the actual Penpot artifact.
 
@@ -60,7 +62,9 @@ This is CineBridge's persistent execution plan. It is derived from the approved 
 - Objective: design responsive event creation, attendee registration, organizer coverage, recommendation failure, and final selection states using the approved reference language.
 - Context: `docs/DESIGN.md`, `docs/PRD.md`, `docs/DECISIONS.md`, this plan.
 - Acceptance: a real Penpot URL plus non-empty `docs/design/core-responsive-flows-desktop.png` and `docs/design/core-responsive-flows-mobile.png` exports exist; all three MVP flows and empty/error/low-coverage states are represented; public and management contexts are visually distinct; the artifact is ready for human review.
-- Validation: `python3 scripts/validate_design_checkpoint.py docs/design/core-responsive-flows.json`; `python3 -m unittest discover -s tests -v`; `git diff --check`.
+- Internal steps: create, review, targeted repair, export/evidence validation, and human approval under one stage identity.
+- Validation: phased checkpoint validation during production; final `python3 scripts/validate_design_checkpoint.py docs/design/core-responsive-flows.json`, repository tests, and `git diff --check`.
+- Export limitation: the same exact manual-export fallback applies if the remote MCP result cannot be saved directly.
 - Dependency: approved organizer recommendation screen.
 - Approval: explicit human approval of the actual Penpot artifact.
 

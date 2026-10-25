@@ -4,7 +4,7 @@
 
 The dark, warm, independent-cinema direction is approved. The organizer movie recommendation screen is the first reference screen. Its high-fidelity design does not exist yet and therefore is not approved.
 
-Penpot is the source of truth. No direct Penpot automation or local integration was available during repository setup, so this document is a manual handoff and does not claim that a Penpot file was created.
+Penpot is the source of truth. The external AI Factory now uses the globally configured Penpot Cloud MCP provider to create, inspect, and repair editable boards. This document does not claim that a board exists until its checkpoint metadata records the real board IDs and credential-free share URL.
 
 ## Direction
 
@@ -55,10 +55,12 @@ Use these as working Penpot tokens, not as a newly approved color system:
 3. Build reusable top-pick, alternative, warning, and action components.
 4. Test long titles, missing imagery, low preference coverage, and Qloo-unavailable states.
 5. Review desktop and mobile frames against the PRD and anti-goals.
-6. Share the Penpot link and exports for human review. Only explicit human approval can complete this stage.
+6. Export and validate evidence, then present the Penpot link and exports for human review. Only explicit human approval can complete this stage.
 
 ## Review evidence contract
 
-The factory validates real review evidence; it does not treat prose or an agent claim as a design artifact. For the first gate, add `docs/design/organizer-recommendation.json` with `penpot_url`, `desktop_export`, `mobile_export`, and `review_status` fields. The exports must be the non-empty files `docs/design/organizer-recommendation-desktop.png` and `docs/design/organizer-recommendation-mobile.png`, and `review_status` must be `ready_for_human_review`.
+The factory validates real review evidence; it does not treat prose or an agent claim as a design artifact. The persisted internal sequence is create, review, repair when defects are open, export/validate, and human approval. Creation requires `provider`, a credential-free `penpot_url`, `desktop_board_id`, `mobile_board_id`, stable export paths, and `workflow_status: created`; PNG files are deliberately not required yet. Review records `review.defects`, repair closes open defects, and final evidence uses `workflow_status: ready_for_human_review`.
 
-The later core-flow gate uses `docs/design/core-responsive-flows.json`, `docs/design/core-responsive-flows-desktop.png`, and `docs/design/core-responsive-flows-mobile.png` with the same fields and review status. These markers mean ready for review, never approved; approval remains an explicit factory gate.
+For the first gate, the exact exports are `docs/design/organizer-recommendation-desktop.png` and `docs/design/organizer-recommendation-mobile.png`. Penpot Cloud MCP can render shapes for review, but its remote export tool does not provide a reliable repository file-save path. If automation cannot save authentic PNGs, the factory stops after the export attempt and requests only those two manual exports before revalidation. It never fabricates files or weakens the validator.
+
+The later core-flow gate uses `docs/design/core-responsive-flows.json`, `docs/design/core-responsive-flows-desktop.png`, and `docs/design/core-responsive-flows-mobile.png` with the same phased contract. Ready-for-review markers never mean approved; approval remains an explicit factory gate.

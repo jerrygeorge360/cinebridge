@@ -49,6 +49,6 @@ python3 -m unittest discover -s tests -v
 
 ## Current checkpoint
 
-The dark cinematic direction is approved. The first high-fidelity reference screen—the organizer movie recommendation screen—has not been created in Penpot and is not approved. See `docs/DESIGN.md` for the manual Penpot handoff.
+The dark cinematic direction is approved. The first high-fidelity reference screen—the organizer movie recommendation screen—is queued for production through the factory's Penpot Cloud MCP workflow and is not approved. See `docs/DESIGN.md` for its phased evidence and approval contract.
 
 The persistent stage sequence, acceptance criteria, dependencies, checks, and approval gates are in `docs/DEVELOPMENT_PLAN.md`. The external factory can continue one eligible stage per invocation without replacing that plan.

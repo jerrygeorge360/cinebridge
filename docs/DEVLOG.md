@@ -14,3 +14,10 @@
 - The factory now carries stage objectives, context, acceptance criteria, validation, dependencies, resume state, and approval requirements between runs.
 - Verification: 21 factory tests, 5 repository tests, the API health test, web typecheck/build, and Compose configuration passed.
 - Next: validate and approve the real Penpot organizer recommendation artifact.
+
+## 2026-10-25 — Automated Penpot design workflow
+
+- Replaced the manual-first design gate with resumable create, review, targeted repair, export/evidence, and human-approval steps under the existing stage identity.
+- Kept credentials outside the repository and kept final PNG evidence mandatory; remote-export limitations now stop with a two-file manual fallback.
+- Verification: 29 factory tests, 9 repository tests, the API health test, web typecheck/build, Compose configuration, and both repositories' diff checks passed.
+- No CineBridge product features were implemented.

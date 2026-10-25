@@ -3,11 +3,12 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlparse
+from urllib.parse import parse_qsl, urlparse
 
 EXPECTED_EXPORTS = {
     "organizer-recommendation.json": {
@@ -21,7 +22,15 @@ EXPECTED_EXPORTS = {
 }
 
 
-def validate_checkpoint(metadata_path: Path, repository: Path) -> list[str]:
+PHASES = {"created", "reviewed", "repaired", "evidence"}
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+
+
+def validate_checkpoint(
+    metadata_path: Path,
+    repository: Path,
+    phase: str = "evidence",
+) -> list[str]:
     root = repository.resolve()
     metadata_path = metadata_path.resolve()
     if root not in metadata_path.parents:
@@ -34,14 +43,56 @@ def validate_checkpoint(metadata_path: Path, repository: Path) -> list[str]:
         return [f"invalid checkpoint metadata: {exc}"]
     if not isinstance(data, dict):
         return ["checkpoint metadata must be a JSON object"]
+    if phase not in PHASES:
+        return [f"unknown validation phase: {phase}"]
 
     errors: list[str] = []
+    if data.get("provider") != "penpot-cloud":
+        errors.append("provider must be penpot-cloud")
     penpot_url = data.get("penpot_url")
     parsed = urlparse(penpot_url) if isinstance(penpot_url, str) else None
     if not parsed or parsed.scheme not in {"http", "https"} or not parsed.netloc:
         errors.append("penpot_url must be a complete http(s) URL")
-    if data.get("review_status") != "ready_for_human_review":
-        errors.append("review_status must be ready_for_human_review")
+    elif parsed.username or parsed.password or any(
+        any(word in key.lower() for word in ("token", "secret", "key", "auth"))
+        for key, _ in parse_qsl(parsed.query, keep_blank_values=True)
+    ):
+        errors.append("penpot_url must not contain credentials or token-like query values")
+    for field in ("desktop_board_id", "mobile_board_id"):
+        if not isinstance(data.get(field), str) or not data[field].strip():
+            errors.append(f"{field} must identify an editable Penpot board")
+
+    expected_status = {
+        "created": "created",
+        "reviewed": "reviewed",
+        "repaired": "repaired",
+        "evidence": "ready_for_human_review",
+    }[phase]
+    if data.get("workflow_status") != expected_status:
+        errors.append(f"workflow_status must be {expected_status}")
+
+    if phase in {"reviewed", "repaired", "evidence"}:
+        review = data.get("review")
+        defects = review.get("defects") if isinstance(review, dict) else None
+        if not isinstance(defects, list):
+            errors.append("review.defects must be a list")
+            defects = []
+        for index, defect in enumerate(defects):
+            if not isinstance(defect, dict):
+                errors.append(f"review.defects[{index}] must be an object")
+                continue
+            for field in ("id", "description"):
+                if not isinstance(defect.get(field), str) or not defect[field].strip():
+                    errors.append(f"review.defects[{index}].{field} must be non-empty")
+            if defect.get("status") not in {"open", "repaired"}:
+                errors.append(
+                    f"review.defects[{index}].status must be open or repaired"
+                )
+        if phase in {"repaired", "evidence"} and any(
+            isinstance(defect, dict) and defect.get("status") == "open"
+            for defect in defects
+        ):
+            errors.append(f"{phase} checkpoint must not contain open defects")
 
     expected_exports = EXPECTED_EXPORTS.get(metadata_path.name, {})
     for field in ("desktop_export", "mobile_export"):
@@ -55,19 +106,22 @@ def validate_checkpoint(metadata_path: Path, repository: Path) -> list[str]:
         candidate = (root / relative).resolve()
         if relative.is_absolute() or root not in candidate.parents:
             errors.append(f"{field} must remain inside the repository")
-        elif not candidate.is_file() or candidate.stat().st_size == 0:
-            errors.append(f"{field} does not identify a non-empty export")
+        elif phase == "evidence":
+            if not candidate.is_file() or candidate.stat().st_size == 0:
+                errors.append(f"{field} does not identify a non-empty export")
+            elif candidate.read_bytes()[: len(PNG_SIGNATURE)] != PNG_SIGNATURE:
+                errors.append(f"{field} is not a PNG export")
     return errors
 
 
 def main(argv: list[str] | None = None) -> int:
-    arguments = argv if argv is not None else sys.argv[1:]
-    if len(arguments) != 1:
-        print("usage: validate_design_checkpoint.py METADATA.json", file=sys.stderr)
-        return 2
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--phase", choices=sorted(PHASES), default="evidence")
+    parser.add_argument("metadata")
+    arguments = parser.parse_args(argv if argv is not None else sys.argv[1:])
     repository = Path(__file__).resolve().parent.parent
-    metadata = (repository / arguments[0]).resolve()
-    errors = validate_checkpoint(metadata, repository)
+    metadata = (repository / arguments.metadata).resolve()
+    errors = validate_checkpoint(metadata, repository, arguments.phase)
     if errors:
         print("; ".join(errors), file=sys.stderr)
         return 1
