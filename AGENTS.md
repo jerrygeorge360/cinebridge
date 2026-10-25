@@ -1,6 +1,7 @@
 # CineBridge repository rules
 
 - Treat `docs/PRD.md`, `docs/ARCHITECTURE.md`, and `docs/DECISIONS.md` as the product source of truth.
+- Follow `docs/DEVELOPMENT_PLAN.md` as the persistent execution sequence; a stage may not start until its dependencies and approval gates are complete.
 - This repository must build, test, and deploy without the neighboring development-factory repository.
 - Keep Next.js application code in `web/` and FastAPI application code in `api/`.
 - Keep Qloo credentials and calls in the backend. Never expose attendee preferences in public responses or logs.

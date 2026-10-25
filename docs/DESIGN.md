@@ -57,3 +57,8 @@ Use these as working Penpot tokens, not as a newly approved color system:
 5. Review desktop and mobile frames against the PRD and anti-goals.
 6. Share the Penpot link and exports for human review. Only explicit human approval can complete this stage.
 
+## Review evidence contract
+
+The factory validates real review evidence; it does not treat prose or an agent claim as a design artifact. For the first gate, add `docs/design/organizer-recommendation.json` with `penpot_url`, `desktop_export`, `mobile_export`, and `review_status` fields. The exports must be the non-empty files `docs/design/organizer-recommendation-desktop.png` and `docs/design/organizer-recommendation-mobile.png`, and `review_status` must be `ready_for_human_review`.
+
+The later core-flow gate uses `docs/design/core-responsive-flows.json`, `docs/design/core-responsive-flows-desktop.png`, and `docs/design/core-responsive-flows-mobile.png` with the same fields and review status. These markers mean ready for review, never approved; approval remains an explicit factory gate.

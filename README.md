@@ -9,7 +9,7 @@ The product exists to make group film selection more thoughtful without pretendi
 - `web/`: Next.js + TypeScript user interface.
 - `api/`: FastAPI backend; the only future boundary for Qloo credentials and requests.
 - SQLite + SQLAlchemy: intentional persistence choice for one application instance. Migrations begin when the first schema is introduced.
-- `docs/`: approved requirements, design direction, architecture, decisions, and milestone log.
+- `docs/`: approved requirements, design direction, architecture, decisions, ordered development plan, and milestone log.
 - `tests/`: repository-level independence checks.
 
 The repository is standalone. It has no runtime, test, build, or deployment dependency on the development factory that registered it.
@@ -50,3 +50,5 @@ python3 -m unittest discover -s tests -v
 ## Current checkpoint
 
 The dark cinematic direction is approved. The first high-fidelity reference screen—the organizer movie recommendation screen—has not been created in Penpot and is not approved. See `docs/DESIGN.md` for the manual Penpot handoff.
+
+The persistent stage sequence, acceptance criteria, dependencies, checks, and approval gates are in `docs/DEVELOPMENT_PLAN.md`. The external factory can continue one eligible stage per invocation without replacing that plan.
