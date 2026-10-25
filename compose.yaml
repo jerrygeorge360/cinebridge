@@ -1,0 +1,23 @@
+services:
+  api:
+    build: ./api
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-sqlite:////data/cinebridge.db}
+      QLOO_API_KEY: ${QLOO_API_KEY:-}
+    ports:
+      - "8000:8000"
+    volumes:
+      - cinebridge-data:/data
+
+  web:
+    build: ./web
+    depends_on:
+      - api
+    environment:
+      API_BASE_URL: http://api:8000
+    ports:
+      - "3000:3000"
+
+volumes:
+  cinebridge-data:
+
