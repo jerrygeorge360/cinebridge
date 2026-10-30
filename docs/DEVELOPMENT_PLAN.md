@@ -19,6 +19,9 @@ This is CineBridge's persistent execution plan. It is derived from the approved 
 | 11 | Integrated QA and privacy review | Organizer selection | Codex | No |
 | 12 | Release candidate | Integrated QA | Codex | No |
 | 13 | Production release gate | Release candidate | Manual evidence | Yes, merge and release gate |
+| 14 | Film Programming Agent change review | Release candidate | Factory change task | Yes, design and material architecture review |
+| 15 | Updated release candidate | Film Programming Agent change review | Codex | No |
+| 16 | Production release gate (updated) | Updated release candidate | Manual evidence | Yes, merge and release gate |
 
 ## 1. Research — completed
 
@@ -139,3 +142,17 @@ This is CineBridge's persistent execution plan. It is derived from the approved 
 - Validation: run all API and root tests; run web typecheck and build; run Compose configuration; run `git diff --check`.
 - Dependency: release candidate.
 - Approval: explicit human approval is required for merge and production release; operational merge/deploy remains a separate human-authorized action.
+
+## 14. Film Programming Agent change review
+
+- Objective: review the bounded DeepSeek, Search, TMDB, persistence, and cinematic UI change against `docs/FILM_PROGRAMMING_AGENT_CHANGE_BRIEF.md`.
+- Acceptance: the agent cannot alter deterministic Qloo results; no provider key reaches the browser; optional providers fail safely; TMDB attribution, responsive evidence disclosure, and the significant Penpot update are present.
+- Validation: API tests including `test_programming.py`; web typecheck/test/build; migration upgrade; Compose configuration; `git diff --check`.
+- Approval: explicit human approval of the Penpot design change and any material architecture decision. Production release remains pending.
+
+## 15. Updated release candidate
+
+- Objective: refresh release evidence only after the Film Programming Agent change review is approved.
+- Acceptance: evidence records actual validation results, configuration prerequisites, model/search costs if exercised, and known limitations without claiming provider calls that did not occur.
+- Validation: repeat the stage 14 validation suite.
+- Approval: none; this does not authorize production.

@@ -2,22 +2,31 @@ services:
   api:
     build: ./api
     environment:
+      ENVIRONMENT: ${ENVIRONMENT:-production}
       DATABASE_URL: ${DATABASE_URL:-sqlite:////data/cinebridge.db}
       QLOO_API_KEY: ${QLOO_API_KEY:-}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      TMDB_API_KEY: ${TMDB_API_KEY:-}
+      FILM_AGENT_ENABLED: ${FILM_AGENT_ENABLED:-false}
+      TOKEN_DIGEST_SECRET: ${TOKEN_DIGEST_SECRET:-}
+      WEB_BASE_URL: ${WEB_BASE_URL:-http://localhost:3000}
     ports:
       - "8000:8000"
     volumes:
       - cinebridge-data:/data
 
   web:
-    build: ./web
+    build:
+      context: ./web
+      args:
+        NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
     depends_on:
       - api
     environment:
       API_BASE_URL: http://api:8000
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
     ports:
       - "3000:3000"
 
 volumes:
   cinebridge-data:
-

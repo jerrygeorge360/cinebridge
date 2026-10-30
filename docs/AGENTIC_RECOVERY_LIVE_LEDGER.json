@@ -1,0 +1,837 @@
+{
+  "experiment": "cinebridge-agentic-recovery-v1",
+  "executed_at": "2026-10-27T11:49:01.791346+00:00",
+  "aggregate_cap_usd": 0.1,
+  "reserved_usd": 0.016800000000000006,
+  "actual_estimated_cost_usd": 0.0032718,
+  "model": "deepseek-flash",
+  "price_basis": "DeepSeek Flash peak cache-miss: input $0.30/M, output $1.20/M; estimate only.",
+  "provider_calls": 10,
+  "records": [
+    {
+      "scenario": "anime-reasons-v1",
+      "decision": "abstain",
+      "observation": "No experimental recovery conclusion was accepted.",
+      "uncertainty": "The deterministic shortlist remains unchanged because evidence recovery was unavailable or invalid.",
+      "evidence_refs": [
+        "packet:scenario"
+      ],
+      "stopping_reason": "invalid_final_response",
+      "model_turns": 1,
+      "input_tokens": 849,
+      "output_tokens": 170,
+      "estimated_cost_usd": 0.0004587,
+      "latency_ms": 9225,
+      "tool_calls": []
+    },
+    {
+      "scenario": "code-geass-politics-v1",
+      "decision": "abstain",
+      "observation": "No experimental recovery conclusion was accepted.",
+      "uncertainty": "The deterministic shortlist remains unchanged because evidence recovery was unavailable or invalid.",
+      "evidence_refs": [
+        "packet:scenario"
+      ],
+      "stopping_reason": "invalid_final_response",
+      "model_turns": 1,
+      "input_tokens": 894,
+      "output_tokens": 296,
+      "estimated_cost_usd": 0.0006234,
+      "latency_ms": 3632,
+      "tool_calls": []
+    },
+    {
+      "scenario": "weak-coverage-v1",
+      "decision": "abstain",
+      "observation": "No experimental recovery conclusion was accepted.",
+      "uncertainty": "The deterministic shortlist remains unchanged because evidence recovery was unavailable or invalid.",
+      "evidence_refs": [
+        "packet:scenario"
+      ],
+      "stopping_reason": "invalid_final_response",
+      "model_turns": 1,
+      "input_tokens": 846,
+      "output_tokens": 114,
+      "estimated_cost_usd": 0.00039059999999999995,
+      "latency_ms": 3230,
+      "tool_calls": []
+    },
+    {
+      "scenario": "anime-reasons-v1",
+      "decision": "abstain",
+      "observation": "No experimental recovery conclusion was accepted.",
+      "uncertainty": "The deterministic shortlist remains unchanged because evidence recovery was unavailable or invalid.",
+      "evidence_refs": [
+        "packet:scenario"
+      ],
+      "stopping_reason": "invalid_final_response",
+      "model_turns": 1,
+      "input_tokens": 882,
+      "output_tokens": 137,
+      "estimated_cost_usd": 0.000429,
+      "latency_ms": 3841,
+      "tool_calls": [],
+      "raw_provider_responses": [
+        {
+          "id": "3a043eca-437e-4035-8cc8-a44f1790d45b",
+          "object": "response",
+          "created_at": 1793101577,
+          "status": "completed",
+          "background": false,
+          "completed_at": 1793101579,
+          "content_filters": null,
+          "error": null,
+          "frequency_penalty": 0.0,
+          "incomplete_details": null,
+          "instructions": "You are a staging-only CineBridge recovery investigator. The existing deterministic shortlist, eligibility, and order are immutable. Investigate only a concrete uncertainty that a permitted read could resolve; do not call a tool merely to appear agentic. If recovery_trigger identifies an evidence gap and a listed tool can directly inspect it, make that one read before your final decision. You may make up to two read-only lookups total and at most one query_qloo_focused call. Never request new candidates, raw scores, ranking, availability, rights, or unverified tags. When finished return JSON only: decision (accept_existing_shortlist|clarification_needed|abstain), observation, uncertainty, evidence_refs, stopping_reason. Do not include candidate, candidate_title, rank, score, or recommended_title fields.",
+          "max_output_tokens": 400,
+          "max_tool_calls": null,
+          "model": "deepseek-flash",
+          "moderation": null,
+          "output": [
+            {
+              "type": "message",
+              "id": "8756b782-3c70-46da-9487-39ea1a5cb937",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "{\"decision\": \"accept_existing_shortlist\", \"observation\": \"Recovery trigger is null and coverage is reported complete; the shortlist is deterministic and the attendee reasons (cat-and-mouse morality, survival stakes, family and catharsis) are already mapped to a verified entity. No concrete evidence gap is identified that a permitted read could resolve.\", \"uncertainty\": \"None stated; no specific uncertainty tied to a listed tool exists, so no lookup is warranted.\", \"evidence_refs\": [], \"stopping_reason\": \"No recovery trigger or resolvable evidence gap; proceeding would require inventing an investigation, so the existing shortlist stands.\"}"
+                }
+              ],
+              "phase": "final_answer",
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "presence_penalty": 0.0,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "prompt_cache_retention": null,
+          "reasoning": {
+            "effort": "none",
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": false,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "json_object"
+            },
+            "verbosity": null
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "name": "inspect_qloo_themes",
+              "description": "Read verified Qloo theme tags for one selected interest. Use only if tags could resolve a stated uncertainty.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "entity_id": {
+                    "type": "string"
+                  },
+                  "media_type": {
+                    "type": "string",
+                    "enum": [
+                      "movie",
+                      "tv"
+                    ]
+                  }
+                },
+                "required": [
+                  "entity_id",
+                  "media_type"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "inspect_movie_evidence",
+              "description": "Read verified stored evidence for one existing deterministic candidate.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "candidate_title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "candidate_title"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "query_qloo_focused",
+              "description": "One registered read-only Qloo investigation for a selected entity using only verified tags. It cannot discover candidates or return rankings.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "entity_id": {
+                    "type": "string"
+                  },
+                  "media_type": {
+                    "type": "string",
+                    "enum": [
+                      "movie",
+                      "tv"
+                    ]
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "maxItems": 4
+                  },
+                  "question": {
+                    "type": "string",
+                    "maxLength": 160
+                  }
+                },
+                "required": [
+                  "entity_id",
+                  "media_type",
+                  "tags",
+                  "question"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "inspect_audience_coverage",
+              "description": "Read existing coverage and unresolved-preference evidence before deciding whether to abstain or clarify.",
+              "parameters": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              },
+              "strict": null
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 882,
+            "input_tokens_details": {
+              "cached_tokens": 0
+            },
+            "output_tokens": 137,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1019
+          },
+          "user": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "scenario": "code-geass-politics-v1",
+      "decision": "abstain",
+      "observation": "No experimental recovery conclusion was accepted.",
+      "uncertainty": "The deterministic shortlist remains unchanged because evidence recovery was unavailable or invalid.",
+      "evidence_refs": [
+        "packet:scenario"
+      ],
+      "stopping_reason": "invalid_final_response",
+      "model_turns": 1,
+      "input_tokens": 954,
+      "output_tokens": 205,
+      "estimated_cost_usd": 0.0005322,
+      "latency_ms": 3556,
+      "tool_calls": [],
+      "raw_provider_responses": [
+        {
+          "id": "54a429d3-2067-46bb-bc01-0c2aac50cf6b",
+          "object": "response",
+          "created_at": 1793101581,
+          "status": "completed",
+          "background": false,
+          "completed_at": 1793101583,
+          "content_filters": null,
+          "error": null,
+          "frequency_penalty": 0.0,
+          "incomplete_details": null,
+          "instructions": "You are a staging-only CineBridge recovery investigator. The existing deterministic shortlist, eligibility, and order are immutable. Investigate only a concrete uncertainty that a permitted read could resolve; do not call a tool merely to appear agentic. If recovery_trigger identifies an evidence gap and a listed tool can directly inspect it, make that one read before your final decision. You may make up to two read-only lookups total and at most one query_qloo_focused call. Never request new candidates, raw scores, ranking, availability, rights, or unverified tags. When finished return JSON only: decision (accept_existing_shortlist|clarification_needed|abstain), observation, uncertainty, evidence_refs, stopping_reason. Do not include candidate, candidate_title, rank, score, or recommended_title fields.",
+          "max_output_tokens": 400,
+          "max_tool_calls": null,
+          "model": "deepseek-flash",
+          "moderation": null,
+          "output": [
+            {
+              "type": "message",
+              "id": "210ecb54-4522-4b4d-952f-bd981489d20c",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "{\"decision\":\"accept_existing_shortlist\",\"observation\":\"The organizer supplied a complete coverage statement and an immutable deterministic shortlist; the only stated gap is candidate-level thematic evidence for the selected interest. A permitted read of verified Qloo themes for the mapped entity could describe the interest entity's verified tags, but tags on the mapped title do not establish thematic fit for the listed candidates, and I am not permitted to request new candidates, ranking, or unverified tags.\",\"uncertainty\":\"Whether the three shortlisted titles thematically align with 'political strategy and moral conflict' remains undocumented at the candidate level; verified tag reads on the mapped entity cannot close that gap without exceeding permitted scope.\",\"evidence_refs\":[],\"stopping_reason\":\"The recovery trigger points to a candidate-level evidence gap that no permitted tool directly inspects (theme reads exist only for a selected interest entity and stored evidence only for verified stored records); further lookups would not resolve it, so the deterministic shortlist stands as-is.\"}"
+                }
+              ],
+              "phase": "final_answer",
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "presence_penalty": 0.0,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "prompt_cache_retention": null,
+          "reasoning": {
+            "effort": "none",
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": false,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "json_object"
+            },
+            "verbosity": null
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "name": "inspect_qloo_themes",
+              "description": "Read verified Qloo theme tags for one selected interest. Use only if tags could resolve a stated uncertainty.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "entity_id": {
+                    "type": "string"
+                  },
+                  "media_type": {
+                    "type": "string",
+                    "enum": [
+                      "movie",
+                      "tv"
+                    ]
+                  }
+                },
+                "required": [
+                  "entity_id",
+                  "media_type"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "inspect_movie_evidence",
+              "description": "Read verified stored evidence for one existing deterministic candidate.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "candidate_title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "candidate_title"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "query_qloo_focused",
+              "description": "One registered read-only Qloo investigation for a selected entity using only verified tags. It cannot discover candidates or return rankings.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "entity_id": {
+                    "type": "string"
+                  },
+                  "media_type": {
+                    "type": "string",
+                    "enum": [
+                      "movie",
+                      "tv"
+                    ]
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "maxItems": 4
+                  },
+                  "question": {
+                    "type": "string",
+                    "maxLength": 160
+                  }
+                },
+                "required": [
+                  "entity_id",
+                  "media_type",
+                  "tags",
+                  "question"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "inspect_audience_coverage",
+              "description": "Read existing coverage and unresolved-preference evidence before deciding whether to abstain or clarify.",
+              "parameters": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              },
+              "strict": null
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 954,
+            "input_tokens_details": {
+              "cached_tokens": 768
+            },
+            "output_tokens": 205,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1159
+          },
+          "user": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "scenario": "weak-coverage-v1",
+      "decision": "abstain",
+      "observation": "No experimental recovery conclusion was accepted.",
+      "uncertainty": "The deterministic shortlist remains unchanged because evidence recovery was unavailable or invalid.",
+      "evidence_refs": [
+        "packet:scenario"
+      ],
+      "stopping_reason": "invalid_final_response",
+      "model_turns": 2,
+      "input_tokens": 1901,
+      "output_tokens": 223,
+      "estimated_cost_usd": 0.0008378999999999998,
+      "latency_ms": 6058,
+      "tool_calls": [
+        {
+          "name": "inspect_audience_coverage",
+          "arguments": {},
+          "result": {
+            "coverage": "below product threshold; sparse eligible candidates",
+            "unresolved_mappings": [
+              {
+                "tmdb_title": "Unresolved Fixture",
+                "tmdb_media_type": "movie",
+                "resolution": "unresolved"
+              }
+            ]
+          }
+        }
+      ],
+      "raw_provider_responses": [
+        {
+          "id": "f5f3c051-59a8-4104-9b6e-638108165836",
+          "object": "response",
+          "created_at": 1793101586,
+          "status": "completed",
+          "background": false,
+          "completed_at": 1793101586,
+          "content_filters": null,
+          "error": null,
+          "frequency_penalty": 0.0,
+          "incomplete_details": null,
+          "instructions": "You are a staging-only CineBridge recovery investigator. The existing deterministic shortlist, eligibility, and order are immutable. Investigate only a concrete uncertainty that a permitted read could resolve; do not call a tool merely to appear agentic. If recovery_trigger identifies an evidence gap and a listed tool can directly inspect it, make that one read before your final decision. You may make up to two read-only lookups total and at most one query_qloo_focused call. Never request new candidates, raw scores, ranking, availability, rights, or unverified tags. When finished return JSON only: decision (accept_existing_shortlist|clarification_needed|abstain), observation, uncertainty, evidence_refs, stopping_reason. Do not include candidate, candidate_title, rank, score, or recommended_title fields.",
+          "max_output_tokens": 400,
+          "max_tool_calls": null,
+          "model": "deepseek-flash",
+          "moderation": null,
+          "output": [
+            {
+              "type": "function_call",
+              "id": "2d2723ed-1c3b-40b4-8c30-a6a71b1b4310",
+              "status": "completed",
+              "arguments": "{}",
+              "call_id": "call_00_7LlhwvumT2exuWHfBuHq4519",
+              "name": "inspect_audience_coverage"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "presence_penalty": 0.0,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "prompt_cache_retention": null,
+          "reasoning": {
+            "effort": "none",
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": false,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "json_object"
+            },
+            "verbosity": null
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "name": "inspect_qloo_themes",
+              "description": "Read verified Qloo theme tags for one selected interest. Use only if tags could resolve a stated uncertainty.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "entity_id": {
+                    "type": "string"
+                  },
+                  "media_type": {
+                    "type": "string",
+                    "enum": [
+                      "movie",
+                      "tv"
+                    ]
+                  }
+                },
+                "required": [
+                  "entity_id",
+                  "media_type"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "inspect_movie_evidence",
+              "description": "Read verified stored evidence for one existing deterministic candidate.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "candidate_title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "candidate_title"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "query_qloo_focused",
+              "description": "One registered read-only Qloo investigation for a selected entity using only verified tags. It cannot discover candidates or return rankings.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "entity_id": {
+                    "type": "string"
+                  },
+                  "media_type": {
+                    "type": "string",
+                    "enum": [
+                      "movie",
+                      "tv"
+                    ]
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "maxItems": 4
+                  },
+                  "question": {
+                    "type": "string",
+                    "maxLength": 160
+                  }
+                },
+                "required": [
+                  "entity_id",
+                  "media_type",
+                  "tags",
+                  "question"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "inspect_audience_coverage",
+              "description": "Read existing coverage and unresolved-preference evidence before deciding whether to abstain or clarify.",
+              "parameters": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              },
+              "strict": null
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 900,
+            "input_tokens_details": {
+              "cached_tokens": 640
+            },
+            "output_tokens": 26,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 926
+          },
+          "user": null,
+          "metadata": {}
+        },
+        {
+          "id": "da445365-0327-42da-a68f-0896b442943d",
+          "object": "response",
+          "created_at": 1793101587,
+          "status": "completed",
+          "background": false,
+          "completed_at": 1793101588,
+          "content_filters": null,
+          "error": null,
+          "frequency_penalty": 0.0,
+          "incomplete_details": null,
+          "instructions": "You are a staging-only CineBridge recovery investigator. The existing deterministic shortlist, eligibility, and order are immutable. Investigate only a concrete uncertainty that a permitted read could resolve; do not call a tool merely to appear agentic. If recovery_trigger identifies an evidence gap and a listed tool can directly inspect it, make that one read before your final decision. You may make up to two read-only lookups total and at most one query_qloo_focused call. Never request new candidates, raw scores, ranking, availability, rights, or unverified tags. When finished return JSON only: decision (accept_existing_shortlist|clarification_needed|abstain), observation, uncertainty, evidence_refs, stopping_reason. Do not include candidate, candidate_title, rank, score, or recommended_title fields.",
+          "max_output_tokens": 400,
+          "max_tool_calls": null,
+          "model": "deepseek-flash",
+          "moderation": null,
+          "output": [
+            {
+              "type": "message",
+              "id": "59ea486f-6da6-4ba4-b9bf-484b7756be7f",
+              "status": "completed",
+              "content": [
+                {
+                  "type": "output_text",
+                  "annotations": [],
+                  "logprobs": [],
+                  "text": "{\"decision\": \"clarification_needed\", \"observation\": \"Coverage remains below the product threshold with sparse eligible candidates, and the single unresolved preference ('Unresolved Fixture', movie) has no verified resolution in the stored coverage evidence.\", \"uncertainty\": \"Whether the unresolved preference maps to a verified entity at all; without an entity id, no permitted read can inspect its themes or relevance, so the shortlist cannot be confirmed as aligned with that preference.\", \"evidence_refs\": [\"inspect_audience_coverage: coverage=below product threshold; sparse eligible candidates\", \"inspect_audience_coverage: unresolved_mappings=[Unresolved Fixture (movie), resolution=unresolved]\"], \"stopping_reason\": \"The trigger's evidence gap was inspected; the only permitted read confirmed the unresolved mapping without an entity id, so no further read could resolve it and the shortlist's alignment with the second preference cannot be verified.\"}"
+                }
+              ],
+              "phase": "final_answer",
+              "role": "assistant"
+            }
+          ],
+          "parallel_tool_calls": true,
+          "presence_penalty": 0.0,
+          "previous_response_id": null,
+          "prompt_cache_key": null,
+          "prompt_cache_retention": null,
+          "reasoning": {
+            "effort": "none",
+            "summary": null
+          },
+          "safety_identifier": null,
+          "service_tier": "default",
+          "store": false,
+          "temperature": 1.0,
+          "text": {
+            "format": {
+              "type": "json_object"
+            },
+            "verbosity": null
+          },
+          "tool_choice": "auto",
+          "tools": [
+            {
+              "type": "function",
+              "name": "inspect_qloo_themes",
+              "description": "Read verified Qloo theme tags for one selected interest. Use only if tags could resolve a stated uncertainty.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "entity_id": {
+                    "type": "string"
+                  },
+                  "media_type": {
+                    "type": "string",
+                    "enum": [
+                      "movie",
+                      "tv"
+                    ]
+                  }
+                },
+                "required": [
+                  "entity_id",
+                  "media_type"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "inspect_movie_evidence",
+              "description": "Read verified stored evidence for one existing deterministic candidate.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "candidate_title": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "candidate_title"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "query_qloo_focused",
+              "description": "One registered read-only Qloo investigation for a selected entity using only verified tags. It cannot discover candidates or return rankings.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "entity_id": {
+                    "type": "string"
+                  },
+                  "media_type": {
+                    "type": "string",
+                    "enum": [
+                      "movie",
+                      "tv"
+                    ]
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "maxItems": 4
+                  },
+                  "question": {
+                    "type": "string",
+                    "maxLength": 160
+                  }
+                },
+                "required": [
+                  "entity_id",
+                  "media_type",
+                  "tags",
+                  "question"
+                ],
+                "additionalProperties": false
+              },
+              "strict": null
+            },
+            {
+              "type": "function",
+              "name": "inspect_audience_coverage",
+              "description": "Read existing coverage and unresolved-preference evidence before deciding whether to abstain or clarify.",
+              "parameters": {
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              },
+              "strict": null
+            }
+          ],
+          "top_logprobs": 0,
+          "top_p": 1.0,
+          "truncation": "disabled",
+          "usage": {
+            "input_tokens": 1001,
+            "input_tokens_details": {
+              "cached_tokens": 768
+            },
+            "output_tokens": 197,
+            "output_tokens_details": {
+              "reasoning_tokens": 0
+            },
+            "total_tokens": 1198
+          },
+          "user": null,
+          "metadata": {}
+        }
+      ]
+    },
+    {
+      "scenario": "anime-reasons-v1",
+      "decision": "abstain",
+      "observation": "No experimental recovery conclusion was accepted.",
+      "uncertainty": "The deterministic shortlist remains unchanged because evidence recovery was unavailable or invalid.",
+      "evidence_refs": [
+        "packet:scenario"
+      ],
+      "stopping_reason": "provider_unavailable",
+      "model_turns": 1,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "latency_ms": 16793,
+      "tool_calls": [],
+      "raw_provider_responses": []
+    },
+    {
+      "scenario": "code-geass-politics-v1",
+      "decision": "abstain",
+      "observation": "No experimental recovery conclusion was accepted.",
+      "uncertainty": "The deterministic shortlist remains unchanged because evidence recovery was unavailable or invalid.",
+      "evidence_refs": [
+        "packet:scenario"
+      ],
+      "stopping_reason": "provider_unavailable",
+      "model_turns": 1,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "latency_ms": 23020,
+      "tool_calls": [],
+      "raw_provider_responses": []
+    },
+    {
+      "scenario": "weak-coverage-v1",
+      "decision": "abstain",
+      "observation": "No experimental recovery conclusion was accepted.",
+      "uncertainty": "The deterministic shortlist remains unchanged because evidence recovery was unavailable or invalid.",
+      "evidence_refs": [
+        "packet:scenario"
+      ],
+      "stopping_reason": "provider_unavailable",
+      "model_turns": 1,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "estimated_cost_usd": 0.0,
+      "latency_ms": 17417,
+      "tool_calls": [],
+      "raw_provider_responses": []
+    }
+  ]
+}

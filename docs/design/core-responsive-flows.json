@@ -1,0 +1,33 @@
+{
+  "provider": "penpot-cloud",
+  "penpot_url": "https://design.penpot.app/#/workspace?team-id=502b4555-3f5f-807a-8008-877c632e3cfb&file-id=41725af0-a889-809a-8008-d85f5792d880&page-id=d39400b8-658a-80c0-8008-d88491eb3e82",
+  "desktop_board_id": "d39400b8-658a-80c0-8008-d884ae2f7498",
+  "mobile_board_id": "d39400b8-658a-80c0-8008-d884af0bb946",
+  "desktop_export": "docs/design/core-responsive-flows-desktop.png",
+  "mobile_export": "docs/design/core-responsive-flows-mobile.png",
+  "review": {
+    "defects": [
+      {
+        "id": "CRF-REV-001",
+        "description": "Five mobile states have a 5.23 px title/subtitle collision because wrapped 28 px titles extend beyond their 61 px text boxes: event setup validation, registration empty, organizer empty audience, organizer low coverage, and recommendation unavailable.",
+        "status": "repaired"
+      },
+      {
+        "id": "CRF-REV-002",
+        "description": "Critical privacy, warning, failure, coverage, and screening-rights copy is set at 9-10 px across the desktop and mobile boards, making essential guidance and safeguards too small for a customer-facing responsive interface.",
+        "status": "repaired"
+      },
+      {
+        "id": "CRF-REV-003",
+        "description": "The 9 px wine flow labels use #8A3046 on #151213 or #181415 backgrounds (approximately 2.25-2.30:1 contrast), so the state labels do not meet the approved high-contrast direction.",
+        "status": "repaired"
+      },
+      {
+        "id": "CRF-REV-004",
+        "description": "Neither responsive board contains an image fill; the final-selection state uses an abstract poster placeholder, so the approved strong-film-imagery direction is not carried into the selected-film outcome.",
+        "status": "repaired"
+      }
+    ]
+  },
+  "workflow_status": "ready_for_human_review"
+}

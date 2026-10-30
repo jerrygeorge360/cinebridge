@@ -36,6 +36,8 @@ The system must not combine incomparable raw affinity scores across queries, cla
 
 Included: event creation, separate public/private links, attendee registration, preference coverage, three recommendation candidates, explanations, warnings, and organizer film selection.
 
+The organizer view may also show an optional Film Programming Brief. It summarizes only the deterministic, Qloo-backed shortlist and clearly labels uncertainty. Current web information is conditional, traceable to sources, and never confirms screening rights or availability. Verified TMDB artwork may be shown with a placeholder when unavailable.
+
 Excluded: payments, ticketing integrations, organizer accounts, analytics dashboards, custom ML, automatic announcements, screening-rights verification, and unrelated discovery features. Organizers remain responsible for screening rights.
 
 ## Acceptance criteria
@@ -50,4 +52,3 @@ Excluded: payments, ticketing integrations, organizer accounts, analytics dashbo
 - Inputs are validated, sensitive values are not logged, and request limits protect public endpoints.
 - The application can run as one Docker-compatible instance with persistent SQLite storage.
 - Responsive customer-facing screens use natural language and one dominant action per screen.
-

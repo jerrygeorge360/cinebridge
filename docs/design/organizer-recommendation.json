@@ -1,0 +1,12 @@
+{
+  "provider": "penpot-cloud",
+  "penpot_url": "https://design.penpot.app/#/workspace?team-id=502b4555-3f5f-807a-8008-877c632e3cfb&file-id=41725af0-a889-809a-8008-d85f5792d880&page-id=41725af0-a889-809a-8008-d85f5792d881",
+  "desktop_board_id": "d39400b8-658a-80c0-8008-d8725747abfe",
+  "mobile_board_id": "d39400b8-658a-80c0-8008-d8725c5ffd58",
+  "desktop_export": "docs/design/organizer-recommendation-desktop.png",
+  "mobile_export": "docs/design/organizer-recommendation-mobile.png",
+  "review": {
+    "defects": []
+  },
+  "workflow_status": "ready_for_human_review"
+}

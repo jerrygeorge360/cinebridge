@@ -1,0 +1,809 @@
+{
+  "experiment": "cinebridge-agentic-recovery-final-protocol-v1",
+  "executed_at": "2026-10-27T12:19:01.574013+00:00",
+  "aggregate_cap_usd": 0.02,
+  "preregistration": {
+    "tmdb_id": 255107,
+    "tmdb_media_type": "tv",
+    "qloo_entity_id": "60FC0842-480F-478E-86D2-B4E3E64B75BF",
+    "qloo_entity_type": "urn:entity:tv_show",
+    "initial_shortlist": [
+      "Konosuba!: God's Blessing on This Wonderful World! - Legend of Crimson",
+      "Is It Wrong to Try to Pick Up Girls in a Dungeon - Arrow of the Orion",
+      "Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train"
+    ],
+    "verified_theme_subset": [
+      "Political",
+      "Military strategy",
+      "Moral ambiguity",
+      "Political intrigue"
+    ],
+    "ranking_invariant": "The initial deterministic shortlist and order are immutable; Qloo provider scores and ranks are never retained or compared across queries."
+  },
+  "c0": {
+    "policy": "For this preregistered scenario, inspect themes then make one focused query; never alter the existing shortlist or its order.",
+    "decision": "accept_existing_shortlist",
+    "evidence_refs": [
+      "packet:scenario",
+      "tool:inspect_qloo_themes",
+      "tool:query_qloo_focused"
+    ],
+    "stopping_reason": "fixed_c0_two_read_policy",
+    "tool_calls": [
+      {
+        "name": "inspect_qloo_themes",
+        "arguments": {
+          "entity_id": "60FC0842-480F-478E-86D2-B4E3E64B75BF",
+          "media_type": "tv"
+        },
+        "result": {
+          "entity_id": "60FC0842-480F-478E-86D2-B4E3E64B75BF",
+          "media_type": "tv",
+          "tags": [
+            "Political",
+            "Military strategy",
+            "Moral ambiguity",
+            "Political intrigue"
+          ]
+        }
+      },
+      {
+        "name": "query_qloo_focused",
+        "arguments": {
+          "entity_id": "60FC0842-480F-478E-86D2-B4E3E64B75BF",
+          "media_type": "tv",
+          "tags": [
+            "Political",
+            "Military strategy"
+          ],
+          "question": "Does the existing movie shortlist have additional verified Qloo evidence for political strategy and moral conflict?"
+        },
+        "result": {
+          "candidate_titles": [
+            "Konosuba!: God's Blessing on This Wonderful World! - Legend of Crimson",
+            "Is It Wrong to Try to Pick Up Girls in a Dungeon - Arrow of the Orion",
+            "Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train"
+          ],
+          "query": {
+            "filter.type": "urn:entity:movie",
+            "signal.interests.entities": "60FC0842-480F-478E-86D2-B4E3E64B75BF"
+          },
+          "evidence": "Focused Qloo response filtered to the existing deterministic shortlist; no provider scores or ranks retained."
+        }
+      }
+    ],
+    "latency_ms": 4200
+  },
+  "agent": {
+    "decision": "abstain",
+    "observation": "Verified Qloo themes for the selected TV entity include Political, Military strategy, Moral ambiguity, and Political intrigue, confirming the organizer's stated interests are thematic matches at the selection level. However, the shortlist candidates are fantasy/action anime films, and the focused Qloo investigation returned the existing shortlist without any retained score, rank, or thematic evidence connecting those titles to political strategy or moral conflict. Candidate-level thematic explanation remains unavailable; available_evidence lists no candidate titles with stored evidence.",
+    "uncertainty": "Whether any shortlisted movie actually shares the verified political-strategy and moral-conflict themes cannot be determined from permitted reads, since no candidate-level evidence exists and the focused query retained no thematic rationale.",
+    "evidence_refs": [
+      "packet:scenario",
+      "tool:inspect_qloo_themes",
+      "tool:query_qloo_focused"
+    ],
+    "stopping_reason": "Themes confirmed the trigger but candidate-level fit is still unexplained; remaining reads could not resolve it under the permitted constraints.",
+    "model_turns": 3,
+    "input_tokens": 4760,
+    "output_tokens": 491,
+    "estimated_cost_usd": 0.0020172,
+    "latency_ms": 10451,
+    "tool_calls": [
+      {
+        "name": "inspect_qloo_themes",
+        "arguments": {
+          "entity_id": "60FC0842-480F-478E-86D2-B4E3E64B75BF",
+          "media_type": "tv"
+        },
+        "result": {
+          "entity_id": "60FC0842-480F-478E-86D2-B4E3E64B75BF",
+          "media_type": "tv",
+          "tags": [
+            "Political",
+            "Military strategy",
+            "Moral ambiguity",
+            "Political intrigue"
+          ]
+        }
+      },
+      {
+        "name": "query_qloo_focused",
+        "arguments": {
+          "entity_id": "60FC0842-480F-478E-86D2-B4E3E64B75BF",
+          "media_type": "tv",
+          "tags": [
+            "Political",
+            "Military strategy",
+            "Moral ambiguity",
+            "Political intrigue"
+          ],
+          "question": "Do these verified themes indicate a thematically grounded link to the listed movie candidates?"
+        },
+        "result": {
+          "candidate_titles": [
+            "Konosuba!: God's Blessing on This Wonderful World! - Legend of Crimson",
+            "Is It Wrong to Try to Pick Up Girls in a Dungeon - Arrow of the Orion",
+            "Demon Slayer: Kimetsu no Yaiba - The Movie: Mugen Train"
+          ],
+          "query": {
+            "filter.type": "urn:entity:movie",
+            "signal.interests.entities": "60FC0842-480F-478E-86D2-B4E3E64B75BF"
+          },
+          "evidence": "Focused Qloo response filtered to the existing deterministic shortlist; no provider scores or ranks retained."
+        }
+      }
+    ],
+    "tool_selection_model_driven": true,
+    "raw_provider_responses": [
+      {
+        "id": "0db605ee-37df-4fec-8bb4-b71b43c86995",
+        "object": "response",
+        "created_at": 1793103532,
+        "status": "completed",
+        "background": false,
+        "completed_at": 1793103533,
+        "content_filters": null,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "incomplete_details": null,
+        "instructions": "You are a staging-only CineBridge recovery investigator. The existing deterministic shortlist, eligibility, and order are immutable. Investigate only a concrete uncertainty that a permitted read could resolve; do not call a tool merely to appear agentic. If recovery_trigger identifies an evidence gap and a listed tool can directly inspect it, make that one read before your final decision. You may make up to two read-only lookups total and at most one query_qloo_focused call. Never request new candidates, raw scores, ranking, availability, rights, or unverified tags. When finished return JSON only: decision (accept_existing_shortlist|clarification_needed|abstain), observation, uncertainty, evidence_refs, stopping_reason. evidence_refs is mandatory: use exactly packet:scenario for packet facts and exactly tool:<tool name> for each tool result used; never write descriptive citations. Do not include candidate, candidate_title, rank, score, or recommended_title fields.",
+        "max_output_tokens": 400,
+        "max_tool_calls": null,
+        "model": "deepseek-flash",
+        "moderation": null,
+        "output": [
+          {
+            "type": "message",
+            "id": "9a8dbbe9-737c-452e-9886-02513b339869",
+            "status": "completed",
+            "content": [
+              {
+                "type": "output_text",
+                "annotations": [],
+                "logprobs": [],
+                "text": "I'll start by inspecting the verified Qloo themes for the selected TV entity, since the recovery trigger points there first."
+              }
+            ],
+            "phase": "commentary",
+            "role": "assistant"
+          },
+          {
+            "type": "function_call",
+            "id": "15512521-9838-4c9b-a72d-81da527db284",
+            "status": "completed",
+            "arguments": "{\"entity_id\": \"60FC0842-480F-478E-86D2-B4E3E64B75BF\", \"media_type\": \"tv\"}",
+            "call_id": "call_00_mv0EjRbEXjWRddGw85lW1036",
+            "name": "inspect_qloo_themes"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": null,
+        "reasoning": {
+          "effort": "none",
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_schema",
+            "name": "recovery_outcome",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "decision",
+                "observation",
+                "uncertainty",
+                "evidence_refs",
+                "stopping_reason"
+              ],
+              "properties": {
+                "decision": {
+                  "type": "string",
+                  "enum": [
+                    "accept_existing_shortlist",
+                    "clarification_needed",
+                    "abstain"
+                  ]
+                },
+                "observation": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 600
+                },
+                "uncertainty": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 400
+                },
+                "evidence_refs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(packet:scenario|tool:(inspect_qloo_themes|inspect_movie_evidence|query_qloo_focused|inspect_audience_coverage))$"
+                  }
+                },
+                "stopping_reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                }
+              }
+            },
+            "description": null,
+            "strict": null
+          },
+          "verbosity": null
+        },
+        "tool_choice": "auto",
+        "tools": [
+          {
+            "type": "function",
+            "name": "inspect_qloo_themes",
+            "description": "Read verified Qloo theme tags for one selected interest. Use only if tags could resolve a stated uncertainty.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "entity_id": {
+                  "type": "string"
+                },
+                "media_type": {
+                  "type": "string",
+                  "enum": [
+                    "movie",
+                    "tv"
+                  ]
+                }
+              },
+              "required": [
+                "entity_id",
+                "media_type"
+              ],
+              "additionalProperties": false
+            },
+            "strict": null
+          },
+          {
+            "type": "function",
+            "name": "inspect_movie_evidence",
+            "description": "Read verified stored evidence for one existing deterministic candidate.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "candidate_title": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "candidate_title"
+              ],
+              "additionalProperties": false
+            },
+            "strict": null
+          },
+          {
+            "type": "function",
+            "name": "query_qloo_focused",
+            "description": "One registered read-only Qloo investigation for a selected entity using only verified tags. It cannot discover candidates or return rankings.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "entity_id": {
+                  "type": "string"
+                },
+                "media_type": {
+                  "type": "string",
+                  "enum": [
+                    "movie",
+                    "tv"
+                  ]
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 4
+                },
+                "question": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "entity_id",
+                "media_type",
+                "tags",
+                "question"
+              ],
+              "additionalProperties": false
+            },
+            "strict": null
+          },
+          {
+            "type": "function",
+            "name": "inspect_audience_coverage",
+            "description": "Read existing coverage and unresolved-preference evidence before deciding whether to abstain or clarify.",
+            "parameters": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "strict": null
+          }
+        ],
+        "top_logprobs": 0,
+        "top_p": 1.0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 1358,
+          "input_tokens_details": {
+            "cached_tokens": 640
+          },
+          "output_tokens": 104,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 1462
+        },
+        "user": null,
+        "metadata": {}
+      },
+      {
+        "id": "ec868ddd-ab19-427e-801b-647bcb6f98f6",
+        "object": "response",
+        "created_at": 1793103534,
+        "status": "completed",
+        "background": false,
+        "completed_at": 1793103535,
+        "content_filters": null,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "incomplete_details": null,
+        "instructions": "You are a staging-only CineBridge recovery investigator. The existing deterministic shortlist, eligibility, and order are immutable. Investigate only a concrete uncertainty that a permitted read could resolve; do not call a tool merely to appear agentic. If recovery_trigger identifies an evidence gap and a listed tool can directly inspect it, make that one read before your final decision. You may make up to two read-only lookups total and at most one query_qloo_focused call. Never request new candidates, raw scores, ranking, availability, rights, or unverified tags. When finished return JSON only: decision (accept_existing_shortlist|clarification_needed|abstain), observation, uncertainty, evidence_refs, stopping_reason. evidence_refs is mandatory: use exactly packet:scenario for packet facts and exactly tool:<tool name> for each tool result used; never write descriptive citations. Do not include candidate, candidate_title, rank, score, or recommended_title fields.",
+        "max_output_tokens": 400,
+        "max_tool_calls": null,
+        "model": "deepseek-flash",
+        "moderation": null,
+        "output": [
+          {
+            "type": "message",
+            "id": "d47c16c0-1d5e-4874-a63a-5f0d6be3c250",
+            "status": "completed",
+            "content": [
+              {
+                "type": "output_text",
+                "annotations": [],
+                "logprobs": [],
+                "text": "The tags confirm political strategy and moral conflict concerns, but the shortlist remains unexplained. Per the trigger, one focused Qloo investigation is permitted."
+              }
+            ],
+            "phase": "commentary",
+            "role": "assistant"
+          },
+          {
+            "type": "function_call",
+            "id": "bc872459-ee44-45c1-9a9f-878a8e0bf194",
+            "status": "completed",
+            "arguments": "{\"entity_id\": \"60FC0842-480F-478E-86D2-B4E3E64B75BF\", \"media_type\": \"tv\", \"tags\": [\"Political\", \"Military strategy\", \"Moral ambiguity\", \"Political intrigue\"], \"question\": \"Do these verified themes indicate a thematically grounded link to the listed movie candidates?\"}",
+            "call_id": "call_00_NrGQjuw48mcWhhrJQc4F7824",
+            "name": "query_qloo_focused"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": null,
+        "reasoning": {
+          "effort": "none",
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_schema",
+            "name": "recovery_outcome",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "decision",
+                "observation",
+                "uncertainty",
+                "evidence_refs",
+                "stopping_reason"
+              ],
+              "properties": {
+                "decision": {
+                  "type": "string",
+                  "enum": [
+                    "accept_existing_shortlist",
+                    "clarification_needed",
+                    "abstain"
+                  ]
+                },
+                "observation": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 600
+                },
+                "uncertainty": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 400
+                },
+                "evidence_refs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(packet:scenario|tool:(inspect_qloo_themes|inspect_movie_evidence|query_qloo_focused|inspect_audience_coverage))$"
+                  }
+                },
+                "stopping_reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                }
+              }
+            },
+            "description": null,
+            "strict": null
+          },
+          "verbosity": null
+        },
+        "tool_choice": "auto",
+        "tools": [
+          {
+            "type": "function",
+            "name": "inspect_qloo_themes",
+            "description": "Read verified Qloo theme tags for one selected interest. Use only if tags could resolve a stated uncertainty.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "entity_id": {
+                  "type": "string"
+                },
+                "media_type": {
+                  "type": "string",
+                  "enum": [
+                    "movie",
+                    "tv"
+                  ]
+                }
+              },
+              "required": [
+                "entity_id",
+                "media_type"
+              ],
+              "additionalProperties": false
+            },
+            "strict": null
+          },
+          {
+            "type": "function",
+            "name": "inspect_movie_evidence",
+            "description": "Read verified stored evidence for one existing deterministic candidate.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "candidate_title": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "candidate_title"
+              ],
+              "additionalProperties": false
+            },
+            "strict": null
+          },
+          {
+            "type": "function",
+            "name": "query_qloo_focused",
+            "description": "One registered read-only Qloo investigation for a selected entity using only verified tags. It cannot discover candidates or return rankings.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "entity_id": {
+                  "type": "string"
+                },
+                "media_type": {
+                  "type": "string",
+                  "enum": [
+                    "movie",
+                    "tv"
+                  ]
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 4
+                },
+                "question": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "entity_id",
+                "media_type",
+                "tags",
+                "question"
+              ],
+              "additionalProperties": false
+            },
+            "strict": null
+          },
+          {
+            "type": "function",
+            "name": "inspect_audience_coverage",
+            "description": "Read existing coverage and unresolved-preference evidence before deciding whether to abstain or clarify.",
+            "parameters": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "strict": null
+          }
+        ],
+        "top_logprobs": 0,
+        "top_p": 1.0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 1539,
+          "input_tokens_details": {
+            "cached_tokens": 1280
+          },
+          "output_tokens": 169,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 1708
+        },
+        "user": null,
+        "metadata": {}
+      },
+      {
+        "id": "44f5eb61-8a79-4a5c-ae63-d7daa16fbbfd",
+        "object": "response",
+        "created_at": 1793103539,
+        "status": "completed",
+        "background": false,
+        "completed_at": 1793103541,
+        "content_filters": null,
+        "error": null,
+        "frequency_penalty": 0.0,
+        "incomplete_details": null,
+        "instructions": "You are a staging-only CineBridge recovery investigator. The existing deterministic shortlist, eligibility, and order are immutable. Investigate only a concrete uncertainty that a permitted read could resolve; do not call a tool merely to appear agentic. If recovery_trigger identifies an evidence gap and a listed tool can directly inspect it, make that one read before your final decision. You may make up to two read-only lookups total and at most one query_qloo_focused call. Never request new candidates, raw scores, ranking, availability, rights, or unverified tags. When finished return JSON only: decision (accept_existing_shortlist|clarification_needed|abstain), observation, uncertainty, evidence_refs, stopping_reason. evidence_refs is mandatory: use exactly packet:scenario for packet facts and exactly tool:<tool name> for each tool result used; never write descriptive citations. Do not include candidate, candidate_title, rank, score, or recommended_title fields.",
+        "max_output_tokens": 400,
+        "max_tool_calls": null,
+        "model": "deepseek-flash",
+        "moderation": null,
+        "output": [
+          {
+            "type": "message",
+            "id": "9135edc3-43db-4970-b5a3-07cb778b4893",
+            "status": "completed",
+            "content": [
+              {
+                "type": "output_text",
+                "annotations": [],
+                "logprobs": [],
+                "text": "{\"decision\": \"abstain\", \"observation\": \"Verified Qloo themes for the selected TV entity include Political, Military strategy, Moral ambiguity, and Political intrigue, confirming the organizer's stated interests are thematic matches at the selection level. However, the shortlist candidates are fantasy/action anime films, and the focused Qloo investigation returned the existing shortlist without any retained score, rank, or thematic evidence connecting those titles to political strategy or moral conflict. Candidate-level thematic explanation remains unavailable; available_evidence lists no candidate titles with stored evidence.\", \"uncertainty\": \"Whether any shortlisted movie actually shares the verified political-strategy and moral-conflict themes cannot be determined from permitted reads, since no candidate-level evidence exists and the focused query retained no thematic rationale.\", \"evidence_refs\": [\"packet:scenario\", \"tool:inspect_qloo_themes\", \"tool:query_qloo_focused\"], \"stopping_reason\": \"Themes confirmed the trigger but candidate-level fit is still unexplained; remaining reads could not resolve it under the permitted constraints.\"}"
+              }
+            ],
+            "phase": "final_answer",
+            "role": "assistant"
+          }
+        ],
+        "parallel_tool_calls": true,
+        "presence_penalty": 0.0,
+        "previous_response_id": null,
+        "prompt_cache_key": null,
+        "prompt_cache_retention": null,
+        "reasoning": {
+          "effort": "none",
+          "summary": null
+        },
+        "safety_identifier": null,
+        "service_tier": "default",
+        "store": false,
+        "temperature": 1.0,
+        "text": {
+          "format": {
+            "type": "json_schema",
+            "name": "recovery_outcome",
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "decision",
+                "observation",
+                "uncertainty",
+                "evidence_refs",
+                "stopping_reason"
+              ],
+              "properties": {
+                "decision": {
+                  "type": "string",
+                  "enum": [
+                    "accept_existing_shortlist",
+                    "clarification_needed",
+                    "abstain"
+                  ]
+                },
+                "observation": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 600
+                },
+                "uncertainty": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 400
+                },
+                "evidence_refs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "pattern": "^(packet:scenario|tool:(inspect_qloo_themes|inspect_movie_evidence|query_qloo_focused|inspect_audience_coverage))$"
+                  }
+                },
+                "stopping_reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                }
+              }
+            },
+            "description": null,
+            "strict": null
+          },
+          "verbosity": null
+        },
+        "tool_choice": "auto",
+        "tools": [
+          {
+            "type": "function",
+            "name": "inspect_qloo_themes",
+            "description": "Read verified Qloo theme tags for one selected interest. Use only if tags could resolve a stated uncertainty.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "entity_id": {
+                  "type": "string"
+                },
+                "media_type": {
+                  "type": "string",
+                  "enum": [
+                    "movie",
+                    "tv"
+                  ]
+                }
+              },
+              "required": [
+                "entity_id",
+                "media_type"
+              ],
+              "additionalProperties": false
+            },
+            "strict": null
+          },
+          {
+            "type": "function",
+            "name": "inspect_movie_evidence",
+            "description": "Read verified stored evidence for one existing deterministic candidate.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "candidate_title": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "candidate_title"
+              ],
+              "additionalProperties": false
+            },
+            "strict": null
+          },
+          {
+            "type": "function",
+            "name": "query_qloo_focused",
+            "description": "One registered read-only Qloo investigation for a selected entity using only verified tags. It cannot discover candidates or return rankings.",
+            "parameters": {
+              "type": "object",
+              "properties": {
+                "entity_id": {
+                  "type": "string"
+                },
+                "media_type": {
+                  "type": "string",
+                  "enum": [
+                    "movie",
+                    "tv"
+                  ]
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "maxItems": 4
+                },
+                "question": {
+                  "type": "string",
+                  "maxLength": 160
+                }
+              },
+              "required": [
+                "entity_id",
+                "media_type",
+                "tags",
+                "question"
+              ],
+              "additionalProperties": false
+            },
+            "strict": null
+          },
+          {
+            "type": "function",
+            "name": "inspect_audience_coverage",
+            "description": "Read existing coverage and unresolved-preference evidence before deciding whether to abstain or clarify.",
+            "parameters": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": false
+            },
+            "strict": null
+          }
+        ],
+        "top_logprobs": 0,
+        "top_p": 1.0,
+        "truncation": "disabled",
+        "usage": {
+          "input_tokens": 1863,
+          "input_tokens_details": {
+            "cached_tokens": 1664
+          },
+          "output_tokens": 218,
+          "output_tokens_details": {
+            "reasoning_tokens": 0
+          },
+          "total_tokens": 2081
+        },
+        "user": null,
+        "metadata": {}
+      }
+    ]
+  },
+  "provider_calls": 3,
+  "reserved_usd": 0.00504,
+  "actual_estimated_cost_usd": 0.0020172,
+  "price_basis": "DeepSeek Flash peak cache-miss: input $0.30/M, output $1.20/M; estimate only.",
+  "post_run_factual_audit": {
+    "accepted_for_product_evidence": false,
+    "finding": "The schema-valid final answer described the frozen candidate set as fantasy/action anime films. No permitted packet or tool result supplied candidate genre metadata, so that assertion is unsupported under this experiment's evidence boundary.",
+    "effect": "The structured abstention is retained as a raw experimental response, but is not approved as an evidence-grounded recommendation conclusion."
+  },
+  "production_behavior_changed": false
+}

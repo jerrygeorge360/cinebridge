@@ -30,15 +30,22 @@ API in a separate terminal:
 cd api
 python3 -m venv .venv
 .venv/bin/pip install -e '.[dev]'
-.venv/bin/fastapi dev
+.venv/bin/python -m app.start
 ```
 
-The web skeleton is served at `http://localhost:3000`; the API health check is `http://localhost:8000/health`.
+The web setup flow is served at `http://localhost:3000`; the API health check is `http://localhost:8000/health`.
+
+The first schema is applied before the API serves traffic. For a local API run, set
+`TOKEN_DIGEST_SECRET` to a deployment-persistent random value and run
+`cd api && .venv/bin/alembic upgrade head` before starting Uvicorn. The API keeps only
+HMAC-SHA-256 token digests in SQLite; the raw public and private values are returned once,
+inside the two creation links.
 
 ## Verify
 
 ```bash
 cd web && npm run typecheck && npm run build
+cd web && npm run test
 cd api && .venv/bin/python -m unittest discover -s tests -v
 python3 -m unittest discover -s tests -v
 ```

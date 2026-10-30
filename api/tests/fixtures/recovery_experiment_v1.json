@@ -1,0 +1,74 @@
+{
+  "experiment": "cinebridge-agentic-recovery-v1",
+  "redaction": "Synthetic offline evidence only; no credentials, attendee identifiers, or live provider responses.",
+  "scenarios": [
+    {
+      "id": "anime-reasons-v1",
+      "objective": "Find a defensible club screening for mixed anime reasons.",
+      "attendee_reasons": ["cat-and-mouse morality", "survival stakes", "family and catharsis"],
+      "coverage": {"resolved": 3, "total": 3, "threshold_met": true},
+      "shortlist": ["Fixture Drama One", "Fixture Drama Two", "Fixture Drama Three"],
+      "allowed_tools": [],
+      "expected_outcome": "accept"
+    },
+    {
+      "id": "code-geass-politics-v1",
+      "objective": "Assess weakly explained candidates for political strategy and moral conflict.",
+      "attendee_reasons": ["political strategy and moral conflict"],
+      "qloo_entities": [{"id": "fixture-code-geass-tv", "type": "urn:entity:tv_show"}],
+      "coverage": {"resolved": 1, "total": 1, "threshold_met": true, "explainability": "unavailable"},
+      "shortlist": ["Fixture KonoSuba", "Fixture DanMachi", "Fixture Demon Slayer"],
+      "candidate_evidence": {"fixture-candidate-1": {"title": "Fixture KonoSuba", "year": 2019}, "fixture-candidate-2": {"title": "Fixture DanMachi", "year": 2019}, "fixture-candidate-3": {"title": "Fixture Demon Slayer", "year": 2020}},
+      "qloo_themes": {"fixture-code-geass-tv": ["political conflict", "strategy", "moral dilemma"]},
+      "allowed_tools": ["inspect_qloo_themes", "inspect_movie_evidence"],
+      "expected_outcome": "accept"
+    },
+    {
+      "id": "split-club-25-15-v1",
+      "objective": "Surface the tension between quiet drama and action spectacle without erasing either group.",
+      "attendee_reasons": ["quiet character drama (25 attendees)", "action spectacle (15 attendees)"],
+      "coverage": {"resolved": 40, "total": 40, "threshold_met": true, "conflict": true},
+      "shortlist": ["Fixture Quiet Film", "Fixture Bridge Film", "Fixture Action Film"],
+      "allowed_tools": ["inspect_audience_coverage"],
+      "expected_outcome": "clarification_needed"
+    },
+    {
+      "id": "weak-coverage-v1",
+      "objective": "Avoid a recommendation when input coverage is below threshold.",
+      "attendee_reasons": ["one verified preference", "one unresolved preference"],
+      "coverage": {"resolved": 1, "total": 2, "threshold_met": false, "unresolved": ["Unresolved Fixture"]},
+      "shortlist": ["Fixture Sparse One", "Fixture Sparse Two", "Fixture Sparse Three"],
+      "allowed_tools": ["inspect_audience_coverage"],
+      "expected_outcome": "abstain"
+    },
+    {
+      "id": "contradictory-preferences-v1",
+      "objective": "Identify an explicit contradiction before a club screening is selected.",
+      "attendee_reasons": ["bleak tragedy", "only comforting, no violence"],
+      "coverage": {"resolved": 2, "total": 2, "threshold_met": true, "conflict": true},
+      "shortlist": ["Fixture One", "Fixture Two", "Fixture Three"],
+      "allowed_tools": ["inspect_audience_coverage"],
+      "expected_outcome": "clarification_needed"
+    },
+    {
+      "id": "surprising-defensible-v1",
+      "objective": "Check whether a surprising recommendation has usable supporting evidence.",
+      "attendee_reasons": ["anime ensemble dynamics"],
+      "coverage": {"resolved": 1, "total": 1, "threshold_met": true},
+      "shortlist": ["Fixture Unexpected Film", "Fixture Alternative One", "Fixture Alternative Two"],
+      "candidate_evidence": {"fixture-candidate-1": {"title": "Fixture Unexpected Film", "themes": ["ensemble", "identity", "coming of age"]}},
+      "allowed_tools": ["inspect_movie_evidence"],
+      "expected_outcome": "accept"
+    },
+    {
+      "id": "ambiguous-title-v1",
+      "objective": "Keep ambiguous historical free text separate from a verified selection.",
+      "attendee_reasons": ["historical free text: AOT", "verified separate Attack on Titan selection"],
+      "qloo_entities": [{"id": "fixture-attack-on-titan-tv", "type": "urn:entity:tv_show"}],
+      "coverage": {"resolved": 1, "total": 2, "threshold_met": false, "unresolved": ["AOT"]},
+      "shortlist": ["Fixture One", "Fixture Two", "Fixture Three"],
+      "allowed_tools": ["inspect_audience_coverage"],
+      "expected_outcome": "clarification_needed"
+    }
+  ]
+}
